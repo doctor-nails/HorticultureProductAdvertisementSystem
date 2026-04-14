@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    web.xml - Deployment Descriptor
+    
+    This file configures the web application for deployment on Tomcat.
+    It defines servlets, servlet mappings, welcome files, and other settings.
+    
+    Based on Murach's Java Servlets and JSP 2nd Edition:
+    - Chapter 4: How to work with servlets
+    - Chapter 11: How to work with the web.xml file
+-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    
+    <!--
+        ================================
+        DISPLAY NAME AND DESCRIPTION
+        ================================
+    -->
+    <display-name>Horticultural Products Advertisement and Request System</display-name>
+    <description>
+        A web-based system for promoting and advertising products from the 
+        Horticultural Department at Egerton University. Built with Java Servlets and JSP.
+    </description>
+    
+    <!--
+        ================================
+        WELCOME FILE LIST
+        ================================
+        Specifies the default page to display when accessing the application root
+    -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    <!--
+        ================================
+        SERVLET DEFINITIONS
+        ================================
+        Each servlet is defined with a name and class
+    -->
+    
+    <!-- ProductServlet - Handles product catalog and details -->
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>com.horticultural.servlets.ProductServlet</servlet-class>
+        <!-- 
+            Load on startup: 1 means this servlet loads when the app starts
+            This ensures product data is initialized immediately
+        -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <!-- OrderServlet - Handles order requests -->
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>com.horticultural.servlets.OrderServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    
+    <!-- ContactServlet - Handles contact form and inquiries -->
+    <servlet>
+        <servlet-name>ContactServlet</servlet-name>
+        <servlet-class>com.horticultural.servlets.ContactServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    
+    <!-- UserServlet - Handles user authentication -->
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>com.horticultural.servlets.UserServlet</servlet-class>
+        <load-on-startup>4</load-on-startup>
+    </servlet>
+    
+    <!--
+        ================================
+        SERVLET MAPPINGS
+        ================================
+        Maps URL patterns to servlet names
+    -->
+    
+    <!-- ProductServlet mappings -->
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <!-- URL pattern for accessing products -->
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
+    
+    <!-- OrderServlet mappings -->
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <!-- URL pattern for order operations -->
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
+    
+    <!-- ContactServlet mappings -->
+    <servlet-mapping>
+        <servlet-name>ContactServlet</servlet-name>
+        <!-- URL pattern for contact page -->
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    
+    <!-- UserServlet mappings -->
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <!-- URL pattern for user operations -->
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+    
+    <!--
+        ================================
+        SESSION CONFIGURATION
+        ================================
+    -->
+    <session-config>
+        <!-- Session timeout in minutes (30 minutes) -->
+        <session-timeout>30</session-timeout>
+        <!-- Use cookies for session tracking -->
+        <cookie-config>
+            <name>HORTICULTURE_SESSION</name>
+            <http-only>true</http-only>
+        </cookie-config>
+    </session-config>
+    
+    <!--
+        ================================
+        ERROR PAGES
+        ================================
+        Custom error pages for common HTTP errors
+    -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error-404.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error-500.jsp</location>
+    </error-page>
+    
+    <!--
+        ================================
+        MIME MAPPINGS
+        ================================
+        Define MIME types for file extensions
+    -->
+    <mime-mapping>
+        <extension>css</extension>
+        <mime-type>text/css</mime-type>
+    </mime-mapping>
+    
+    <mime-mapping>
+        <extension>js</extension>
+        <mime-type>application/javascript</mime-type>
+    </mime-mapping>
+    
+    <!--
+        ================================
+        CONTEXT PARAMETERS
+        ================================
+        Application-wide initialization parameters
+    -->
+    <context-param>
+        <param-name>appName</param-name>
+        <param-value>Horticultural Products System</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>appVersion</param-name>
+        <param-value>1.0</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>departmentEmail</param-name>
+        <param-value>horticulture@egerton.ac.ke</param-value>
+    </context-param>
+    
+</web-app>
